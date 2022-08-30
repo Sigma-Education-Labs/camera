@@ -1,17 +1,15 @@
-# Operation of the test camera
-Test camera: B0068 Arducam 5MP module <br>
+# Stage 1: Image capture and cloud detection
 
-## Wiring
-The wiring allows for control over both SPI and I2C
-| Arducam     | Raspberry Pi |
-| ----------- | -----------  |
-| VCC         | +5V          |
-| GND         | GND          |
-| SCL         | GPIO 3       |
-| SDA         | GPIO 2       |
-| SCK         | GPIO 11      |
-| MISO        | GPIO 9       |
-| MOSI        | GPIO 10      |
-| CS          | GPIO 8       |
-![Arducam <--> RPI wiring](arducam_rpi_schem.jpg)
+## The Process:
+![Design Process](capture-and-cloud-detection/process.svg)
 
+## Tasks
+- [ ] Acquire telemetry from OBC
+- [ ] Partition telemetry to readable values
+- [ ] Compute ground track
+- [ ] Predict FOV
+- [ ] Determine camera's status
+- [x] Detect clouds in images
+- [x] Compute cloud cover
+- [x] Block cloudy pixels
+- [ ] Save images for next stage
