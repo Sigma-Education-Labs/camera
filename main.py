@@ -1,4 +1,3 @@
-from turtle import down
 from fire_detection import image_contains_fire
 import cv2
 import datetime
