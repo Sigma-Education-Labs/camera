@@ -2,7 +2,7 @@ from fire_detection import image_contains_fire
 import cv2
 import datetime
 import time
-
+from telemetry.telemetry_main import get_patch_coords
 start_time = time.time()
 
 test_image_paths = [
@@ -24,10 +24,15 @@ test_image_paths = [
 
 def downlink(lat, long):
     print("Detected fire on Lat: {} and Long: {}".format(lat, long))
+    ''' --------To be uncommented out when testing on the RPi--------
+    f = open("/work/transfer/fires.txt", "w")
+    f.write("{} {}".format(lat, long))
+    f.close()
+    '''
 
 for i in test_image_paths:
     test_image = cv2.imread(i)
-    print(test_image.shape)
+    print(test_image.shape())
     print("Processing image {}".format(i))
     
     # Define the window size
@@ -47,8 +52,7 @@ for i in test_image_paths:
                 # print("Processing image patch {}:{}".format(r, c))
                 window = test_image[r:r+windowsize_r,c:c+windowsize_c]
                 if (image_contains_fire(window)):
-                    lat = 0.0
-                    long = 0.0
+                    lat, long = get_patch_coords(r,c)
                     print("Detected fire image patch from image {} on patch {}:{} with lat {} and long {}".format(i, r, c, lat, long))
                     downlink(lat, long)
 

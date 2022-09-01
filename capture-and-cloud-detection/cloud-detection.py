@@ -12,7 +12,7 @@ shifted = cv2.pyrMeanShiftFiltering(image, 21, 51)
 gray = cv2.cvtColor(shifted, cv2.COLOR_BGR2GRAY)
 thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-cv2.imshow("Image", image)
+#cv2.imshow("Image", image)
 '''
 # compute the exact Euclidean distance from every binary
 # pixel to the nearest zero pixel, then find peaks in this distance map
@@ -48,6 +48,7 @@ for label in np.unique(labels):
 '''
 thresh = cv2.bitwise_not(thresh)
 res = cv2.bitwise_and(image,image,mask = thresh)
-cv2.imshow("Resultant", res)
-cv2.waitKey(0)
+cv2.imwrite('data/00af77b-cloud-detected.jpg')
+#cv2.imshow("Resultant", res)
+#cv2.waitKey(0)
 
