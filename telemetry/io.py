@@ -6,8 +6,8 @@ This is a minimally-edited copy of "sgp4io.cpp".
 import re
 from datetime import datetime
 from math import pi, pow
-from sgp4.ext import days2mdhms, invjday, jday
-from sgp4.propagation import sgp4init
+from telemetry.ext import days2mdhms, invjday, jday
+from telemetry.propagation import sgp4init
 
 INT_RE = re.compile(r'[+-]?\d*')
 FLOAT_RE = re.compile(r'[+-]?\d*(\.\d*)?')
@@ -28,14 +28,6 @@ def twoline2rv(longstr1, longstr2, whichconst, opsmode='i', satrec=None):
     
     deg2rad  =   pi / 180.0;         #    0.0174532925199433
     xpdotp   =  1440.0 / (2.0 *pi);  #  229.1831180523293
-
-    # For compatibility with our 1.x API, build an old Satellite object
-    # if the caller fails to supply a satrec.  In that case we perform
-    # the necessary import here to avoid an import loop.
-    if satrec is None:
-        from sgp4.model import Satellite
-        satrec = Satellite()
-
     satrec.error = 0;
 
     line = longstr1.rstrip()
@@ -152,12 +144,6 @@ def verify_checksum(*lines):
             raise ValueError(complaint.format(checksum, computed, line))
 
 def fix_checksum(line):
-    """Return a new copy of the TLE `line`, with the correct checksum appended.
-
-    This discards any existing checksum at the end of the line, if a
-    checksum is already present.
-
-    """
     return line[:68].ljust(68) + str(compute_checksum(line))
 
 def compute_checksum(line):

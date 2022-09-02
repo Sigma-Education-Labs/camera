@@ -1,9 +1,9 @@
 """The Satellite class."""
 
-from sgp4.earth_gravity import wgs72old, wgs72, wgs84
-from sgp4.ext import invjday, jday
-from sgp4.io import twoline2rv
-from sgp4.propagation import sgp4, sgp4init
+from telemetry.earth_gravity import wgs72old, wgs72, wgs84
+from telemetry.ext import invjday, jday
+from telemetry.io import twoline2rv
+from telemetry.propagation import sgp4, sgp4init
 
 WGS72OLD = 0
 WGS72 = 1
