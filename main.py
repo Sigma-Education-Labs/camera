@@ -41,8 +41,7 @@ if __name__ == "__main__":
     start_time = time.time()
     testing = True
     tmp_dir = "/tmp"
-    # transfer_dir = "/work/transfer"
-    transfer_dir = "."
+    transfer_dir = "/work/transfer"
 
     while True:
         unix_time, opmode = get_obc_telemetry()
