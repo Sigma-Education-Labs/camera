@@ -8,8 +8,7 @@ import os
 
 testing = True
 tmp_dir = "/tmp"
-# transfer_dir = "/work/transfer"
-transfer_dir = "."
+transfer_dir = "/work/transfer"
 
 def downlink():
     with open('error_log.txt', 'w') as f:
