@@ -2,7 +2,7 @@ import subprocess
 import os 
 
 def downlink(transfer_dir):
-    process = subprocess.run(['mv', 'fires.txt', transfer_dir])
+    process = subprocess.run(["cp", "-fr", "fires.txt", transfer_dir])
     return process
 
 def add_to_downlink_file(lat, long):
