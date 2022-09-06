@@ -7,17 +7,22 @@ from datetime import datetime
 import file_io
 import os
 from main import image_processing
+from os.path import exists
 
 test_dir = "test_images2/"
 test_directory_enc = os.fsencode(test_dir)
 
 def test_capture(tmp_dir):
     with open('error_log.txt', 'w') as f:    
+        print(os.listdir(test_directory_enc))
         for file in os.listdir(test_directory_enc):
             filename = os.fsdecode(file)
             file_ext = os.path.splitext(filename)[1]
-            process = subprocess.run(['cp', test_dir + filename, tmp_dir + "/ipxImage__" + datetime.now().strftime("%H%M%S") + file_ext], stdout=f, universal_newlines=True)
-        return process
+            print(test_dir + filename)
+            if filename.endswith(".tif") or filename.endswith(".jpg"):
+                process = subprocess.run(['cp', test_dir + filename, tmp_dir + "/ipxImage__" + datetime.now().strftime("%H%M%S") + file_ext], stdout=f, universal_newlines=True)
+                print(filename)
+                print(process)
 
                         
 if __name__ == "__main__":
@@ -42,6 +47,8 @@ if __name__ == "__main__":
                     image_processing(latest_img_path, unix_time)
                     file_io.downlink(transfer_dir)
                     file_io.delete_image_file(latest_img_path)
+
+            # process = subprocess.run(['rm', tmp_dir + "/ipxImage__*"])
             break    
         else:
             time.sleep(30)
