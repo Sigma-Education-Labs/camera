@@ -23,7 +23,7 @@ def test_capture(tmp_dir):
 if __name__ == "__main__":
     start_time = time.time()
     tmp_dir = "/tmp"
-    transfer_dir = "/work/transfer"
+    transfer_dir = "/work"
 
     while True:
         unix_time, opmode = get_obc_telemetry()
@@ -42,8 +42,6 @@ if __name__ == "__main__":
                     image_processing(latest_img_path, unix_time)
                     file_io.downlink(transfer_dir)
                     file_io.delete_image_file(latest_img_path)
-
-            # process = subprocess.run(['rm', tmp_dir + "/ipxImage__*"])
             break    
         else:
             time.sleep(30)
