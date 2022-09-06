@@ -2,6 +2,7 @@ import subprocess
 import os 
 
 def downlink(transfer_dir):
+    print("Copying fires.txt over to {}".format(transfer_dir))
     process = subprocess.run(["cp", "-fr", "fires.txt", transfer_dir])
     return process
 
