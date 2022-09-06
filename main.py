@@ -29,20 +29,14 @@ def image_processing(file_path, unix_time):
 
 def image_capture():
     with open('error_log.txt', 'w') as f:
-        if testing:
-            process = subprocess.run(['cp','test_images/ipxImage__124219.tif', tmp_dir + "/ipxImage__" + datetime.now().strftime("%H%M%S") + ".tif"], stdout=f,universal_newlines=True)
-            # process = subprocess.run(['cp','test_images/Fire2.jpg', "/tmp/ipxImage__" + datetime.now().strftime("%H%M%S") + ".jpg"], stdout=f,universal_newlines=True)
-        else:
-            process = subprocess.run(['es_rpiMgrClient','camera', '--capture', tmp_dir, '-t', 'jpg', '-p', '1'], stdout=f,universal_newlines=True)
+        process = subprocess.run(['es_rpiMgrClient','camera', '--capture', tmp_dir, '-t', 'jpg', '-p', '1'], stdout=f,universal_newlines=True)
         return process
 
                         
 if __name__ == "__main__":
     start_time = time.time()
-    testing = True
     tmp_dir = "/tmp"
-    # transfer_dir = "/work/transfer"
-    transfer_dir = "./"
+    transfer_dir = "/work/transfer"
 
     while True:
         unix_time, opmode = get_obc_telemetry()
