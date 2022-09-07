@@ -3,7 +3,7 @@
 
 from math import (acos, asinh, atan2, copysign, cos, fabs, fmod,
                   pi, sin, sinh, sqrt, tan)
-from .functions import days2mdhms
+from telemetry_functions import days2mdhms
 
 undefined = None
 

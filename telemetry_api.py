@@ -5,7 +5,7 @@ __all__ = (
     'accelerated', 'jday', 'days2mdhms',
 )
 
-from .functions import jday, days2mdhms
+from telemetry_functions import jday, days2mdhms
 
 SGP4_ERRORS = {
     1: 'mean eccentricity is outside the range 0.0 to 1.0',
@@ -16,6 +16,6 @@ SGP4_ERRORS = {
     6: 'mrt is less than 1.0 which indicates the satellite has decayed',
 }
 
-from .model import Satrec, SatrecArray
-from .model import WGS72OLD, WGS72, WGS84
+from telemetry_model import Satrec, SatrecArray
+from telemetry_model import WGS72OLD, WGS72, WGS84
 accelerated = False

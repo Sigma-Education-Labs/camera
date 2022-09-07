@@ -6,8 +6,8 @@ This is a minimally-edited copy of "sgp4io.cpp".
 import re
 from datetime import datetime
 from math import pi, pow
-from telemetry.ext import days2mdhms, invjday, jday
-from telemetry.propagation import sgp4init
+from telemetry_ext import days2mdhms, invjday, jday
+from telemetry_propagation import sgp4init
 
 INT_RE = re.compile(r'[+-]?\d*')
 FLOAT_RE = re.compile(r'[+-]?\d*(\.\d*)?')

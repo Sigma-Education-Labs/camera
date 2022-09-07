@@ -1,6 +1,6 @@
 import datetime as dt
 import sgp4
-from .functions import days2mdhms, jday
+from telemetry_functions import days2mdhms, jday
 
 class _UTC(dt.tzinfo):
     'UTC'

@@ -1,7 +1,7 @@
 import fire_detection
 import cv2
 import time
-from telemetry.telemetry_main import unix_time_now, get_patch_coords
+from telemetry_main import unix_time_now, get_patch_coords
 import subprocess
 from datetime import datetime
 import file_io

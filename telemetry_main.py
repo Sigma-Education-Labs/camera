@@ -1,4 +1,4 @@
-from telemetry.api import Satrec
+from telemetry_api import Satrec
 from math import (cos, sin, pi, floor,sqrt, atan2,atan, fabs, asin)
 from numpy import (zeros,meshgrid,arange,array,moveaxis)
 from datetime import datetime
