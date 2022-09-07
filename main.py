@@ -39,7 +39,7 @@ def image_capture():
 if __name__ == "__main__":
     start_time = time.time()
     tmp_dir = "/tmp"
-    transfer_dir = "/work/transfer"
+    transfer_dir = "result"
 
     while True:
         unix_time = unix_time_now()

@@ -28,7 +28,7 @@ def test_capture(tmp_dir):
 if __name__ == "__main__":
     start_time = time.time()
     tmp_dir = "/tmp"
-    transfer_dir = "/work"
+    transfer_dir = "result"
 
     while True:
         unix_time= unix_time_now()
