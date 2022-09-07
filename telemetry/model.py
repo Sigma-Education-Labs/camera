@@ -46,7 +46,7 @@ class Satrec(object):
         return self.no_kozai
 
     @classmethod
-    def twoline2rv(cls, line1, line2, whichconst=WGS72):
+    def twoline2rv(cls, line1, line2, whichconst=WGS84):
         whichconst = gravity_constants[whichconst]
         self = cls()
         twoline2rv(line1, line2, whichconst, 'i', self)

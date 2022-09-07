@@ -1,7 +1,7 @@
 import fire_detection
 import cv2
 import time
-from telemetry.telemetry_main import get_obc_telemetry, get_patch_coords
+from telemetry.telemetry_main import unix_time_now, get_patch_coords
 import subprocess
 from datetime import datetime
 import file_io
@@ -31,26 +31,22 @@ if __name__ == "__main__":
     transfer_dir = "/work"
 
     while True:
-        unix_time, opmode = get_obc_telemetry()
-        if opmode == 4:
-            #satellite is in payload mode so call payload functions
-            capture_error = test_capture(tmp_dir)
-            print(capture_error)
-            test_dir = "test_images/"
-            test_directory_enc = os.fsencode("./test_images/")
+        unix_time= unix_time_now()
+        capture_error = test_capture(tmp_dir)
+        print(capture_error)
+        test_dir = "test_images/"
+        test_directory_enc = os.fsencode("./test_images/")
     
-            for file in os.listdir(tmp_dir):
-                filename = os.fsdecode(file)
+        for file in os.listdir(tmp_dir):
+            filename = os.fsdecode(file)
 
-                if "ipxImage__" in filename:
-                    latest_img_path = tmp_dir + "/" + filename
-                    image_processing(latest_img_path, unix_time)
-                    file_io.downlink(transfer_dir)
-                    file_io.delete_image_file(latest_img_path)
+            if "ipxImage__" in filename:
+                latest_img_path = tmp_dir + "/" + filename
+                image_processing(latest_img_path, unix_time)
+                file_io.downlink(transfer_dir)
+                file_io.delete_image_file(latest_img_path)
 
             # process = subprocess.run(['rm', tmp_dir + "/ipxImage__*"])
-            break    
-        else:
-            time.sleep(30)
-            break
+            else:
+                time.sleep(8) 
     print("--- %s seconds ---" % (time.time() - start_time))

@@ -1,7 +1,7 @@
 import fire_detection
 import cv2
 import time
-from telemetry.telemetry_main import get_obc_telemetry, get_patch_coords
+from telemetry.telemetry_main import unix_time_now, get_patch_coords
 import subprocess
 from datetime import datetime
 import file_io
@@ -39,17 +39,15 @@ if __name__ == "__main__":
     transfer_dir = "/work/transfer"
 
     while True:
-        unix_time, opmode = get_obc_telemetry()
-        if opmode == 4:
-            #satellite is in payload mode so call payload functions
-            capture_error = image_capture()
-            print(capture_error)
-            latest_img_path = file_io.get_latest_image_path(tmp_dir)
-            if latest_img_path:
-                image_processing(latest_img_path, unix_time)
-                file_io.downlink(transfer_dir)
-                file_io.delete_image_file(latest_img_path)
+        unix_time = unix_time_now()
+        capture_error = image_capture()
+        print(capture_error)
+        latest_img_path = file_io.get_latest_image_path(tmp_dir)
+        if latest_img_path:
+            image_processing(latest_img_path, unix_time)
+            file_io.downlink(transfer_dir)
+            file_io.delete_image_file(latest_img_path)
         else:
-            time.sleep(30)
-            break
+            time.sleep(8)
+
     print("--- %s seconds ---" % (time.time() - start_time))

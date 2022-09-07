@@ -5,8 +5,9 @@ from datetime import datetime
 import time
 import struct
 import socket
-from os import (unlink, path)
+from os import path
 from sys import (getsizeof,stderr, stdout)
+from glob import glob
 
 def gstime(jdut1):
     twopi = 2*pi
@@ -136,35 +137,6 @@ def ijk2ll(r):
     else:
         latlongh[2] = r[2]/sin(latlongh[0]) - c*(1.0 - eesqrd)
     return latlongh
-
-#Read telemetry from OBC via socket. Only returns OBC time
-def get_obc_telemetry():
-    server_address = '/tmp/sensor/live_data.sock'
-    #check if the unix socket exists
-    if(path.exists(server_address)):
-        with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
-            try:            
-                data = sock.recv(256)
-                print (stderr, 'received ', getsizeof(data))
-                if data:
-                    #convert to human readable and unpack bytewise
-                    rpi_unix_time = struct.unpack("!B", data[:3])
-                    obc_opmode = struct.unpack("B", data[4])
-                    
-                else:  
-                    rpi_unix_time  = unix_time_now()
-                    obc_opmode = 4
-            except:
-                print("Using RPi time")
-                rpi_unix_time  = unix_time_now()
-                obc_opmode = 4
-    else:
-        #socket doesnt exist. Will have to assume payload mode and use RPi system time
-        print("unable to find ", server_address)
-        # assigned regular string date
-        rpi_unix_time  = unix_time_now()
-        obc_opmode = 4
-    return rpi_unix_time, obc_opmode
 
 def unix_time_now():
     date_time = datetime.now() 
