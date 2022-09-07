@@ -6,10 +6,10 @@ def downlink(transfer_dir):
     process = subprocess.run(["cp", "-fr", "fires.txt", transfer_dir])
     return process
 
-def add_to_downlink_file(lat, long):
-    print("Detected fire on Lat: {} and Long: {}".format(lat, long))
+def add_to_downlink_file(lat, long, prob):
+    print("Detected fire on Lat: {} and Long: {} with prob: {}".format(lat, long,prob))
     f = open("fires.txt", "a")
-    f.write("{} {}\n".format(lat, long))
+    f.write("{} {} {}\n".format(lat, long, prob))
     f.close()
 
 def get_latest_image_path(dirpath, valid_extensions=("raw", "jpg", "bmp", "tif", "tiff")):

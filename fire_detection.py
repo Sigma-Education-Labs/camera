@@ -15,9 +15,22 @@ def image_contains_fire(image):
 
     # Threshold with inRange() get only specific colors
     mask_red = cv2.inRange(hsv, lower_red, upper_red)
-    res = cv2.bitwise_and(hsv, hsv, mask= mask_red)    
-    
-    if (len(np.nonzero(res)[0]) > 0 and len(np.nonzero(res)[1]) > 0):
-        return True
-    else:
-        return False
+    count_fire = cv2.countNonZero(mask_red) 
+    height, width = hsv.shape[:2] 
+    prob = 0.0
+    hsum = 0.0
+    ssum = 0.0
+    vsum = 0.0
+    if (count_fire > 0):
+        for i in range(0, height):
+            for j in range(0, width):
+                h,s,v = hsv[i][j]
+                if(h<=50 and s<=250 and v<=250 and h>=0 and s>= 120 and v>= 200):
+                    h = h/50.0
+                    s = s/250.0
+                    v = s/250.0
+                    hsum = hsum +h
+                    ssum = ssum +s
+                    vsum = vsum +v
+        prob = 0.5 + (hsum+ssum+vsum)/(3*count_fire)
+    return prob

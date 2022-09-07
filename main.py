@@ -16,16 +16,18 @@ def image_processing(file_path, unix_time):
     windowsize_c = 180
 
     ''' Broad phase '''
-    if (fire_detection.image_contains_fire(test_image)):
+    probability_in_img = fire_detection.image_contains_fire(test_image)
+    if (probability_in_img>0.0):
         ''' Narrow phase '''
         # Crop out a patch from the image and detect if there is fire in it
         for r in range(0,test_image.shape[0] - windowsize_r, windowsize_r):
             for c in range(0,test_image.shape[1] - windowsize_c, windowsize_c):
                 window = test_image[r:r+windowsize_r,c:c+windowsize_c]
-                if (fire_detection.image_contains_fire(window)):
+                probability_in_window = fire_detection.image_contains_fire(window)
+                if (probability_in_window > 0.5):
                     lat, long = get_patch_coords(r,c,unix_time)
-                    print("Detected fire image patch from image {} on patch {}:{} with lat {} and long {}".format(file_path, r, c, lat, long))
-                    file_io.add_to_downlink_file(lat, long)
+                    print("Detected fire image patch from image {} on patch {}:{} with lat {} and long {} and prob {}".format(file_path, r, c, lat, long, probability_in_window))
+                    file_io.add_to_downlink_file(lat, long, probability_in_window)
 
 def image_capture():
     with open('error_log.txt', 'w') as f:
