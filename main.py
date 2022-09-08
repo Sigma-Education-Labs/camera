@@ -28,7 +28,7 @@ def image_processing(file_path, unix_time):
                     lat, long = get_patch_coords(r,c,unix_time)
                     print("Detected fire image patch from image {} on patch {}:{} with lat {} and long {} and prob {}".format(file_path, r, c, lat, long, probability_in_window))
                     file_io.add_to_downlink_file(lat, long, probability_in_window)
-                    cv2.imwrite("result/fire{}.jpg".format(unix_time),window)
+                    cv2.imwrite("result/fire_{}_{}_{}.jpg".format(r,c,unix_time),window)
 
 def image_capture():
     with open('error_log.txt', 'w') as f:
