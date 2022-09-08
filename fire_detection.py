@@ -1,3 +1,4 @@
+from email.mime import image
 import numpy as np
 import cv2
 
@@ -16,21 +17,10 @@ def image_contains_fire(image):
     # Threshold with inRange() get only specific colors
     mask_red = cv2.inRange(hsv, lower_red, upper_red)
     count_fire = cv2.countNonZero(mask_red) 
-    height, width = hsv.shape[:2] 
     prob = 0.0
-    hsum = 0.0
-    ssum = 0.0
-    vsum = 0.0
     if (count_fire > 0):
-        for i in range(0, height):
-            for j in range(0, width):
-                h,s,v = hsv[i][j]
-                if(h<=50 and s<=250 and v<=250 and h>=0 and s>= 120 and v>= 200):
-                    h = h/50.0
-                    s = s/250.0
-                    v = s/250.0
-                    hsum = hsum +h
-                    ssum = ssum +s
-                    vsum = vsum +v
-        prob = 0.5 + (hsum+ssum+vsum)/(3*count_fire)
+        average_color = np.average(hsv.astype(np.float16) , axis=(0, 1))
+        average_color = average_color / np.array([50.0,250.0,250.0])
+        prob = np.sum(average_color)/3.0
+
     return prob
