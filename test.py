@@ -30,23 +30,18 @@ if __name__ == "__main__":
     tmp_dir = "/tmp"
     transfer_dir = "result"
 
-    while True:
-        unix_time= unix_time_now()
-        capture_error = test_capture(tmp_dir)
-        print(capture_error)
-        test_dir = "test_images/"
-        test_directory_enc = os.fsencode("./test_images/")
+    unix_time= unix_time_now()
+    capture_error = test_capture(tmp_dir)
+    print(capture_error)
     
-        for file in os.listdir(tmp_dir):
-            filename = os.fsdecode(file)
-
-            if "ipxImage__" in filename:
-                latest_img_path = tmp_dir + "/" + filename
-                image_processing(latest_img_path, unix_time)
-                file_io.downlink(transfer_dir)
-                file_io.delete_image_file(latest_img_path)
-
-            # process = subprocess.run(['rm', tmp_dir + "/ipxImage__*"])
-            else:
-                time.sleep(8) 
+    for file in os.listdir(tmp_dir):
+        filename = os.fsdecode(file)
+        if "ipxImage__" in filename:
+            latest_img_path = tmp_dir + "/" + filename
+            image_processing(latest_img_path, unix_time)
+            file_io.downlink(transfer_dir)
+            file_io.delete_image_file(latest_img_path)
+        # process = subprocess.run(['rm', tmp_dir + "/ipxImage__*"])
+        else:
+            time.sleep(8) 
     print("--- %s seconds ---" % (time.time() - start_time))

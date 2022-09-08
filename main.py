@@ -5,6 +5,8 @@ from telemetry_main import unix_time_now, get_patch_coords
 import subprocess
 from datetime import datetime
 import file_io
+from pathlib import Path
+import os
 
 def image_processing(file_path, unix_time):
     test_image = cv2.imread(file_path)
@@ -40,6 +42,14 @@ if __name__ == "__main__":
     start_time = time.time()
     tmp_dir = "/tmp"
     transfer_dir = "result"
+
+    # Create fires.txt file
+    transfer_fle = Path(os.path.join(transfer_dir, "fires.txt"))
+    transfer_fle.touch(exist_ok=True)
+
+    # Create fires.txt file
+    fle = Path(os.path.join("./", "fires.txt"))
+    fle.touch(exist_ok=True)
 
     while True:
         unix_time = unix_time_now()

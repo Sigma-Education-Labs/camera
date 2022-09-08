@@ -1,5 +1,5 @@
 import subprocess
-import os 
+import os
 
 def downlink(transfer_dir):
     print("Copying fires.txt over to {}".format(transfer_dir))
